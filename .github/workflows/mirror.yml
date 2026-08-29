@@ -22,8 +22,8 @@ jobs:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          test -n "$DOCKERHUB_USERNAME"
-          test -n "$DOCKERHUB_TOKEN"
+          test -n "moontv"
+          test -n "moontv0829"
 
           skopeo copy --all \
             --dest-creds "$DOCKERHUB_USERNAME:$DOCKERHUB_TOKEN" \
