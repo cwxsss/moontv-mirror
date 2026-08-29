@@ -1,0 +1,31 @@
+name: Mirror MoonTV image
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 3 * * *"
+
+permissions: {}
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install skopeo
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y skopeo
+
+      - name: Mirror image to Docker Hub
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          test -n "$DOCKERHUB_USERNAME"
+          test -n "$DOCKERHUB_TOKEN"
+
+          skopeo copy --all \
+            --dest-creds "$DOCKERHUB_USERNAME:$DOCKERHUB_TOKEN" \
+            docker://ghcr.io/stardm0/moontv:latest \
+            docker://docker.io/$DOCKERHUB_USERNAME/moontv:latest
