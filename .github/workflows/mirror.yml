@@ -29,3 +29,4 @@ jobs:
             --dest-creds "$DOCKERHUB_USERNAME:$DOCKERHUB_TOKEN" \
             docker://ghcr.io/stardm0/moontv:latest \
             docker://docker.io/$DOCKERHUB_USERNAME/moontv:latest
+  
